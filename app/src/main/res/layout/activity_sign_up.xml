@@ -7,12 +7,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ice_pbru.pramrudeevajasen.ice_database.SignUp">
+    tools:context="ice_pbru.pramrudeevajasen.ice_database.SignUp"
+    android:background="#dbf7e2b8">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#d4e6f3c0">
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:text="Name :"
                     android:id="@+id/textView2"
-                    android:textSize="20dp" />
+                    android:textSize="@dimen/H2" />
 
                 <EditText
                     android:layout_width="250dp"
@@ -45,112 +47,94 @@
                     android:inputType="textPersonName"
                     android:ems="10"
                     android:id="@+id/editText"
-                    android:textSize="20dp" />
+                    android:textSize="@dimen/H3"
+                    android:background="#c3f8c1c1" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="Surname:"
+                    android:id="@+id/textView4"
+                    android:textSize="@dimen/H2" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Surname:"
-                        android:id="@+id/textView3"
-                        android:textSize="20dp" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/editText2"
+                    android:textSize="@dimen/H3"
+                    android:background="#a6f2b8f6" />
 
-                    <EditText
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/editText2" />
+            </LinearLayout>
 
-                </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:orientation="vertical"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="USERname:"
+                    android:id="@+id/textView3"
+                    android:textSize="@dimen/H2" />
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText3"
+                    android:textSize="@dimen/H3"
+                    android:background="#9ab8bff0" />
+            </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="USERname:"
-                            android:id="@+id/textView4"
-                            android:textSize="20dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                        <EditText
-                            android:layout_width="250dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/editText3" />
-                    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password:"
+                    android:id="@+id/textView5"
+                    android:textSize="@dimen/H2" />
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberPassword"
+                    android:ems="10"
+                    android:id="@+id/editText4"
+                    android:textSize="@dimen/H3"
+                    android:background="#b7c2f9f6" />
+            </LinearLayout>
 
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Password:"
-                                android:id="@+id/textView5"
-                                android:textSize="20dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="E-mail:"
+                    android:id="@+id/textView6"
+                    android:textSize="@dimen/H2" />
 
-                            <EditText
-                                android:layout_width="250dp"
-                                android:layout_height="wrap_content"
-                                android:inputType="numberPassword|textPassword"
-                                android:ems="10"
-                                android:id="@+id/editText4" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="E-mail:"
-                                android:id="@+id/textView6"
-                                android:textSize="20dp" />
-
-                            <EditText
-                                android:layout_width="250dp"
-                                android:layout_height="wrap_content"
-                                android:inputType="textEmailAddress"
-                                android:ems="10"
-                                android:id="@+id/editText5" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:ems="10"
+                    android:id="@+id/editText5"
+                    android:textSize="@dimen/H3"
+                    android:background="#b5caf3c6" />
             </LinearLayout>
 
         </LinearLayout>
@@ -166,6 +150,7 @@
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
         android:layout_alignParentBottom="true"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:background="#57070707" />
 
 </RelativeLayout>
