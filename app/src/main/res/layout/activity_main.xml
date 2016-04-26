@@ -16,7 +16,7 @@
         android:text="Sing UP"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:onClick="clickSignUp"
         android:background="#fbfaf6f6"
         android:textStyle="bold" />
@@ -28,7 +28,7 @@
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:background="#ffffff"
         android:textStyle="bold"
         android:onClick="testMyAlert" />
