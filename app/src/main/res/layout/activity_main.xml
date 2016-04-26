@@ -30,5 +30,6 @@
         android:layout_alignParentRight="true"
         android:textSize="30dp"
         android:background="#ffffff"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:onClick="testMyAlert" />
 </RelativeLayout>

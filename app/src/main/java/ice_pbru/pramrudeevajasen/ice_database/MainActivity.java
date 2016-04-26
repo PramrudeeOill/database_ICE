@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     }//clickSingUp
 
+    public void testMyAlert(View view) {
+        MyAlert myAlert = new MyAlert();
+        myAlert.myDialog(this,"Alert","ทดสอบ");
+    }
+
 
     private void bindwidget() {
 
