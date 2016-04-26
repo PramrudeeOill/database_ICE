@@ -8,13 +8,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ice_pbru.pramrudeevajasen.ice_database.SignUp"
-    android:background="#dbf7e2b8">
+    android:background="@drawable/d20">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#d4e6f3c0">
+        android:background="#61f8fbb5">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,7 +22,8 @@
             android:text="SignUp"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal"
-            android:textSize="50dp" />
+            android:textSize="50dp"
+            android:textColor="#3e0761" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -31,7 +32,7 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -42,8 +43,8 @@
                     android:textSize="@dimen/H2" />
 
                 <EditText
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:inputType="textPersonName"
                     android:ems="10"
                     android:id="@+id/editText"
@@ -87,7 +88,7 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/editText3"
                     android:textSize="@dimen/H3"
                     android:background="#9ab8bff0" />
@@ -107,7 +108,7 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="numberPassword"
                     android:ems="10"
                     android:id="@+id/editText4"
@@ -129,7 +130,7 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="textEmailAddress"
                     android:ems="10"
                     android:id="@+id/editText5"
@@ -151,6 +152,7 @@
         android:layout_alignParentStart="false"
         android:layout_alignParentBottom="true"
         android:textSize="30dp"
-        android:background="#57070707" />
+        android:background="#57070707"
+        android:textColor="#080808" />
 
 </RelativeLayout>

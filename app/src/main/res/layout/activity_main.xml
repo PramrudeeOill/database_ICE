@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ice_pbru.pramrudeevajasen.ice_database.MainActivity">
+    tools:context="ice_pbru.pramrudeevajasen.ice_database.MainActivity"
+    android:background="@drawable/d18">
 
     <Button
         android:layout_width="wrap_content"
@@ -15,7 +16,10 @@
         android:text="Sing UP"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:onClick="clickSignUp"
+        android:background="#fbfaf6f6"
+        android:textStyle="bold" />
 
     <Button
         android:layout_width="wrap_content"
@@ -24,5 +28,7 @@
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:background="#ffffff"
+        android:textStyle="bold" />
 </RelativeLayout>
