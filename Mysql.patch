@@ -1,0 +1,435 @@
+Index: app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MySQLite.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MySQLite.java	(revision )
++++ app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MySQLite.java	(revision )
+@@ -0,0 +1,48 @@
++package ice_pbru.pramrudeevajasen.ice_database;
++
++import android.content.ContentValues;
++import android.content.Context;
++import android.database.sqlite.SQLiteDatabase;
++
++/**
++ * Created by ICE on 4/29/2016.
++ */
++public class MySQLite {
++    //ex
++
++    private MyOpenHelper myOpenHelper;
++    private SQLiteDatabase sqLiteDatabase;
++
++    public static final String user_table = "userTABLE";
++    public static final String colum_id = "_id";
++    public static final String colum_Name = "Name";
++    public static final String colum_Surname = "Surname";
++    public static final String colum_User = "User";
++    public static final String colum_Password = "Password";
++    public static final String colum_Email = "Email";
++
++
++    public MySQLite(Context context) {
++        myOpenHelper = new MyOpenHelper(context);
++        sqLiteDatabase = myOpenHelper.getWritableDatabase();
++
++    }
++
++    public long addNewUser(String strName,
++                           String strSurname,
++                           String strUser,
++                           String strPassword,
++                           String strEmail) {
++        ContentValues contentValues = new ContentValues();
++        contentValues.put(colum_Name, strName);
++        contentValues.put(colum_Surname, strSurname);
++        contentValues.put(colum_User, strUser);
++        contentValues.put(colum_Password, strPassword);
++        contentValues.put(colum_Email, strEmail);
++
++        return sqLiteDatabase.insert(user_table, null, contentValues);
++
++    }
++
++
++}//main
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(date 1461648602000)
++++ .idea/misc.xml	(revision )
+@@ -37,7 +37,7 @@
+     <ConfirmationsSetting value="0" id="Add" />
+     <ConfirmationsSetting value="0" id="Remove" />
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+\ No newline at end of file
+Index: app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MainActivity.java	(date 1461648602000)
++++ app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MainActivity.java	(revision )
+@@ -4,12 +4,18 @@
+ import android.support.v7.app.AppCompatActivity;
+ import android.os.Bundle;
+ import android.view.View;
++import android.widget.EditText;
+ 
+ public class MainActivity extends AppCompatActivity {
+ 
+ 
+     //Explicit
++    private EditText NameEditText , UsernameEditText;
++    private  String NameString , UserString;
+ 
++    private MySQLite mySQLite;
++
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+@@ -19,22 +25,44 @@
+         //bind widget
+ 
+         bindwidget();
++        mySQLite = new MySQLite(this);
+ 
++
++
+     }//Main Method
+ 
+-    public void clickSignUp (View view) {
+-        startActivity(new Intent(MainActivity.this, SignUp.class));
++    public void click (View view) {
++        startActivity(new Intent(MainActivity.this,SignUP.class));
+ 
+ 
+     }//clickSingUp
+ 
+     public void testMyAlert(View view) {
+         MyAlert myAlert = new MyAlert();
+-        myAlert.myDialog(this,"Alert","ทดสอบ");
++        myAlert.myDialog(this, "ใส่ไม่ครบ", "กรอกใหม่");
+     }
+ 
++    public void click_1(View view) {
++        NameString = NameEditText.getText().toString().trim();
++        UserString = UsernameEditText.getText().toString().trim();
++        ///
+ 
++        if (checkspace_1()) {
++
++            MyAlert myAlert = new MyAlert();
++            myAlert.myDialog(this, "ใส่ไม่ครบ", "กรอกใหม่");
++        }
++    }
++
++    private boolean checkspace_1() {
++
++        return NameString.equals("") || UserString.equals("");
++    }
++
++
+     private void bindwidget() {
++        NameEditText = (EditText) findViewById(R.id.editText6 );
++        UsernameEditText = (EditText) findViewById(R.id.editText7);
+ 
+ 
+ 
+Index: app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/SignUp.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/SignUp.java	(date 1461648602000)
++++ app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/SignUP.java	(revision )
+@@ -1,13 +1,104 @@
+ package ice_pbru.pramrudeevajasen.ice_database;
+ 
+-import android.support.v7.app.AppCompatActivity;
++/**
++ * Created by ICE on 4/29/2016.
++ */
++
+ import android.os.Bundle;
++import android.util.Log;
++import android.view.View;
++import android.widget.EditText;
+ 
+-public class SignUp extends AppCompatActivity {
++import com.squareup.okhttp.Call;
++import com.squareup.okhttp.Callback;
++import com.squareup.okhttp.FormEncodingBuilder;
++import com.squareup.okhttp.OkHttpClient;
++import com.squareup.okhttp.Request;
++import com.squareup.okhttp.RequestBody;
++import com.squareup.okhttp.Response;
+ 
++import java.io.IOException;
++
++import android.support.v7.app.AppCompatActivity;
++
++
++public class SignUP extends AppCompatActivity {
++
++    private EditText nameEditText, surnameEditText, userEditText, passwordEditText, emailEditText;
++    private String nameString, surnameString, userString, paswordString, emailString;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_sign_up);
++
++        bindwiget();
++
++    }//1
++
++    public void clicksignup(View view) {
++        nameString = nameEditText.getText().toString().trim(); //check ช่องว่าง
++        surnameString = surnameEditText.getText().toString().trim();
++        userString = userEditText.getText().toString().trim();
++        paswordString = passwordEditText.getText().toString().trim();
++        emailString = emailEditText.getText().toString().trim();
++
++
++///////////////////////
++        if (checkSpace()) {
++            //have space
++            MyAlert myAlert = new MyAlert();
++            myAlert.myDialog(this, "มีช่องว่าง", "กรุณาตรวจสอบข้อมูลให้ครบถ้วน");
++        } else {
++            updateValueToSever();
++
+-    }
+-}
++        }
++    }
++
++    private void updateValueToSever() {
++        String strURL = "http://ice.pbru.ac.th/ICE56/Santipap/addData.php";
++        OkHttpClient okHttpClient = new OkHttpClient();
++        RequestBody requestBody = new FormEncodingBuilder()
++                .add("isAdd", "true")
++                .add("Name", nameString)
++                .add("Surname", surnameString)
++                .add("User", userString)
++                .add("Password", paswordString)
++                .add("Email", emailString)
++                .build();
++        Request.Builder builder = new Request.Builder();
++        Request request = builder.url(strURL).post(requestBody).build();
++
++        Call call = okHttpClient.newCall(request);
++        call.enqueue(new Callback() {
++            @Override
++            public void onFailure(Request request, IOException e) {
++
++            }
++
++            @Override
++            public void onResponse(Response response) throws IOException {
++
++                try {
++                    finish();
++                } catch (Exception e) {
++                    Log.d("Santipap--->", "error" + e.toString());
++                }
++
++            }
++        });
++    }
++
++    private boolean checkSpace() {
++        return nameString.equals("") || surnameString.equals("") || userString.equals("") || paswordString.equals("") || emailString.equals("");
++    }
++
++    private void bindwiget() {
++        nameEditText = (EditText) findViewById(R.id.editText);
++        surnameEditText = (EditText) findViewById(R.id.editText2);
++        userEditText = (EditText) findViewById(R.id.editText3);
++        passwordEditText = (EditText) findViewById(R.id.editText4);
++        emailEditText = (EditText) findViewById(R.id.editText5);
++    }
++
++}//2
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(date 1461648602000)
++++ app/src/main/res/layout/activity_main.xml	(revision )
+@@ -17,7 +17,7 @@
+         android:id="@+id/button"
+         android:layout_alignParentBottom="true"
+         android:textSize="35dp"
+-        android:onClick="clickSignUp"
++        android:onClick="click"
+         android:background="#fbfaf6f6"
+         android:textStyle="bold" />
+ 
+@@ -32,4 +32,34 @@
+         android:background="#ffffff"
+         android:textStyle="bold"
+         android:onClick="testMyAlert" />
++
++    <LinearLayout
++        android:orientation="vertical"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:layout_marginLeft="120dp"
++        android:layout_marginTop="320dp"
++        android:layout_marginRight="120dp"
++        android:layout_marginBottom="320dp"
++        android:background="#acffffff">
++
++        <EditText
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:inputType="textPersonName"
++            android:ems="10"
++            android:id="@+id/editText6"
++            android:layout_margin="20dp"
++            android:hint="Username" />
++
++        <EditText
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:inputType="textPassword"
++            android:ems="10"
++            android:id="@+id/editText7"
++            android:layout_margin="20dp"
++            android:hint="Password" />
++    </LinearLayout>
++
+ </RelativeLayout>
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(date 1461648602000)
++++ app/src/main/AndroidManifest.xml	(revision )
+@@ -2,6 +2,8 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     package="ice_pbru.pramrudeevajasen.ice_database">
+ 
++    <uses-permission android:name="android.permission.INTERNET" />
++
+     <application
+         android:allowBackup="true"
+         android:icon="@mipmap/ic_launcher"
+@@ -15,7 +17,7 @@
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+-        <activity android:name=".SignUp"></activity>
++        <activity android:name=".SignUP"></activity>
+     </application>
+ 
+ </manifest>
+Index: app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MyOpenHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MyOpenHelper.java	(revision )
++++ app/src/main/java/ice_pbru/pramrudeevajasen/ice_database/MyOpenHelper.java	(revision )
+@@ -0,0 +1,39 @@
++package ice_pbru.pramrudeevajasen.ice_database;
++
++import android.content.Context;
++import android.database.sqlite.SQLiteDatabase;
++import android.database.sqlite.SQLiteOpenHelper;
++
++/**
++ * Created by ICE on 4/29/2016.
++ */
++public class MyOpenHelper extends SQLiteOpenHelper{
++
++    //explicit
++
++    public static final String database_name = "MyDatabase.db";
++    private static final int database_version = 1;
++
++    private static final String create_user_table = "create table userTABLE (" +
++            "_id integer primary key, "+
++            "Name text, "+
++            "Surname text, "+
++            "User text, "+
++            "Password text, "+
++            "Email text); ";
++
++    public  MyOpenHelper (Context context) {
++        super(context, database_name, null, database_version);
++    }
++
++    @Override
++    public void onCreate(SQLiteDatabase db) {
++        db.execSQL(create_user_table);
++
++    }
++
++    @Override
++    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
++
++    }
++}// Main
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(date 1461648602000)
++++ .idea/vcs.xml	(revision )
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="" vcs="Git" />
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(date 1461648602000)
++++ app/build.gradle	(revision )
+@@ -20,7 +20,8 @@
+ }
+ 
+ dependencies {
+-    compile fileTree(dir: 'libs', include: ['*.jar'])
++    compile fileTree(include: ['*.jar'], dir: 'libs')
+     testCompile 'junit:junit:4.12'
+     compile 'com.android.support:appcompat-v7:23.2.1'
++    compile 'com.squareup.okhttp:okhttp:2.0.0'
+ }
+Index: app/src/main/res/layout/activity_sign_up.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_sign_up.xml	(date 1461648602000)
++++ app/src/main/res/layout/activity_sign_up.xml	(revision )
+@@ -153,6 +153,7 @@
+         android:layout_alignParentBottom="true"
+         android:textSize="30dp"
+         android:background="#57070707"
+-        android:textColor="#080808" />
++        android:textColor="#080808"
++        android:onClick="clicksignup" />
+ 
+ </RelativeLayout>
