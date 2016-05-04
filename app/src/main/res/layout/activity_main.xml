@@ -17,7 +17,7 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:textSize="35dp"
-        android:onClick="clickSignUp"
+        android:onClick="singup"
         android:background="#fbfaf6f6"
         android:textStyle="bold" />
 
@@ -31,5 +31,35 @@
         android:textSize="35dp"
         android:background="#ffffff"
         android:textStyle="bold"
-        android:onClick="testMyAlert" />
+        android:onClick="click_1" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginBottom="320dp"
+        android:background="#acffffff">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editText6"
+            android:layout_margin="20dp"
+            android:hint="Username" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editText7"
+            android:layout_margin="20dp"
+            android:hint="Password" />
+    </LinearLayout>
+
 </RelativeLayout>

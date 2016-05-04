@@ -5,4 +5,5 @@
 
     <dimen name="H2">25dp</dimen>
     <dimen name="H3">20dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
