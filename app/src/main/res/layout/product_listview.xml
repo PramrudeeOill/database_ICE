@@ -22,6 +22,6 @@
             android:textSize="25dp"
             android:textIsSelectable="false"
             android:paddingTop="20dp"
-            android:textColor="#460724" />
+            android:textColor="#4f0728" />
     </LinearLayout>
 </LinearLayout>
