@@ -20,21 +20,19 @@ import org.json.JSONObject;
 public class LoginSuscess extends AppCompatActivity {
     public ListView listView;
 
-
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_suscess);
 
-        listView = (ListView) findViewById(R.id.listView2);
+        listView = (ListView) findViewById(R.id.listView);
+        SynJSON synJSON = new SynJSON();
+        synJSON.execute();
 
-        SynJson synJson = new SynJson();
-        synJson.execute();
+    }//1
 
-    }
 
-    public class SynJson extends AsyncTask<Void, Void, String> {
+    public class SynJSON extends AsyncTask<Void, Void, String> {
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -45,49 +43,56 @@ public class LoginSuscess extends AppCompatActivity {
                 Request request = builder.url(strURL).build();
                 Response response = okHttpClient.newCall(request).execute();
                 return response.body().string();
+
+
             } catch (Exception e) {
-                Log.d("Pramrudee", "doIn ==>" + e.toString());
+                Log.d("Pramrudee", "check -->" + e.toString());
                 return null;
             }
+
 
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
             try {
-                Log.d("Pramrudee", "Respond ==>" + s);
+                Log.d("Pramrudee", "respone -->" + s);
                 JSONArray jsonArray = new JSONArray(s);
 
                 String[] iconStrings = new String[jsonArray.length()];
                 String[] titleStrings = new String[jsonArray.length()];
                 final String[] eBookStrings = new String[jsonArray.length()];
 
-                for (int i=0; i<jsonArray.length();i++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     iconStrings[i] = jsonObject.getString("Cover");
                     titleStrings[i] = jsonObject.getString("Name");
                     eBookStrings[i] = jsonObject.getString("Ebook");
 
                 }
-                ProductAdapter productAdapter = new ProductAdapter(LoginSuscess. this, iconStrings, titleStrings);
+                ProductAdapter productAdapter = new ProductAdapter(LoginSuscess.this, iconStrings, titleStrings);
                 listView.setAdapter(productAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClickL(AdapterView<?> parent, View view, int i, long id) {
+                    public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(eBookStrings[i]));
                         startActivity(intent);
-
+                        Log.d("Pramrudee", "onPost -->");
                     }
                 });
 
+
+
             } catch (Exception e) {
-                Log.d("pramrudee", "onPost ==>" + e.toString());
+                Log.d("Pramrudee", "onPost -->" + e.toString());
 
             }
-
         }
+
     }
 
-}
+
+}//2
